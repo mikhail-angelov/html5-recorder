@@ -1,0 +1,7 @@
+MediaRecorder Media Recorder API - http://www.w3.org/TR/mediastream-recording/
+only firefox
+bug for chromium https://code.google.com/p/chromium/issues/detail?id=261321
+
+
+example with web sockets
+http://blog.groupbuddies.com/posts/39-tutorial-html-audio-capture-streaming-to-node-js-no-browser-extensions
