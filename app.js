@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 app.use("/", express.static(__dirname + '/index.html'));
 
-var port = 3700;
+var port = 8080;
 var fileWriter;
 
 app.use(bodyParser.json());

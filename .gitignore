@@ -26,3 +26,8 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
+.idea
+node_modules
+public/records
+.DS_Store
