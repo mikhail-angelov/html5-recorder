@@ -11,10 +11,10 @@
 
     function addRecord(record) {
         var li = document.createElement('li');
-        var h = "onRemove('" + record.file + "')"; //hack
-        //h.replace(/\//, '//');
+        li.setAttribute("id", record.file);
+        var handler = "onRemove('" + record.file + "')"; //hack
         var name = record.file + ' (' + record.size/1000 + 'k)';
-        li.innerHTML = '<li id="' + record.file + '"><a href="' + record.file + '" target="_blank">play: ' + name + '</a> <button onclick="' + h + '">remove</button> </li>';
+        li.innerHTML = '<a href="' + record.file + '" target="_blank">' + name + '</a> <button onclick="' + handler + '">remove</button>';
         document.getElementById("records").appendChild(li);
     }
 
@@ -30,7 +30,7 @@
         request.send(JSON.stringify({file:link}));
     };
     function removeRecord(link) {
-        var item = document.getElementById(link).parentNode; //this is hack
+        var item = document.getElementById(link);
         item.parentNode.removeChild(item);
     }
 

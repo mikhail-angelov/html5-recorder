@@ -38,7 +38,12 @@ canvas {
   float:left;
   list-style:none outside none;
   position:relative;
-  padding: 5px;
+  padding: 15px;
   margin: 10px;
   background: linear-gradient(to bottom,  #0088cc 0%,#0055cc 100%); /* W3C */
+}
+
+
+#records li a{
+  color: white;
 }
