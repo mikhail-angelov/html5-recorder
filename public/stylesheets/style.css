@@ -3,3 +3,42 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+canvas {
+  width: 100%;
+  height: 100px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.main-controls {
+  padding-bottom: 0.7rem;
+}
+
+.btn {
+  background: #0088cc; /* Old browsers */
+  /*background: -moz-linear-gradient(top,  #0088cc 0%, #0055cc 100%); *//* FF3.6+ */
+  /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0088cc), color-stop(100%,#0055cc)); *//* Chrome,Safari4+ */
+  /*background: -webkit-linear-gradient(top,  #0088cc 0%,#0055cc 100%); *//* Chrome10+,Safari5.1+ */
+  /*background: -o-linear-gradient(top,  #0088cc 0%,#0055cc 100%); *//* Opera 11.10+ */
+  /*background: -ms-linear-gradient(top,  #0088cc 0%,#0055cc 100%); *//* IE10+ */
+  background: linear-gradient(to bottom,  #0088cc 0%,#0055cc 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0088cc', endColorstr='#0055cc',GradientType=0 ); /* IE6-9 */
+
+  text-align: center;
+  font-size: 100%;
+  margin: 1em auto;
+  padding: .5em;
+  color: white;
+  width: 10em;
+  max-width: 80%;
+  line-height: 1.2em;
+}
+
+#records li{
+  float:left;
+  list-style:none outside none;
+  position:relative;
+  padding: 5px;
+  margin: 10px;
+  background: linear-gradient(to bottom,  #0088cc 0%,#0055cc 100%); /* W3C */
+}

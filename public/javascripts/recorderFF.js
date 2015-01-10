@@ -134,9 +134,20 @@
         alert('getUserMedia not supported in this browser.');
     }
 
-    function success(e) {
+    //https://github.com/mdn/web-dictaphone
+
+    var soundClips = document.querySelector('.sound-clips');
+    var canvas = document.querySelector('.visualizer');
+
+    var audioCtx = new (window.AudioContext || webkitAudioContext)();
+    var canvasCtx = canvas.getContext("2d");
+
+
+    function success(stream) {
         //https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder.state
-        mediaRecorder = new window.MediaRecorder(e);
+        mediaRecorder = new window.MediaRecorder(stream);
+
+        visualize(stream);
 
         // Dispatching OnDataAvailable Handler
         mediaRecorder.ondataavailable = function (e) {
@@ -195,5 +206,59 @@
             data: data.replace(/data:audio\/ogg;base64,/, '') //window.btoa(data)
         }));
         totalSize = totalSize + data.length;
+    }
+
+    function visualize(stream) {
+        var source = audioCtx.createMediaStreamSource(stream);
+
+        var analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+        var bufferLength = analyser.frequencyBinCount;
+        var dataArray = new Uint8Array(bufferLength);
+
+        source.connect(analyser);
+        //analyser.connect(audioCtx.destination);
+
+        WIDTH = canvas.width;
+        HEIGHT = canvas.height;
+
+        draw();
+
+        function draw() {
+
+            requestAnimationFrame(draw);
+
+            analyser.getByteTimeDomainData(dataArray);
+
+            canvasCtx.fillStyle = 'rgb(230, 230, 230)';
+            canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = 'rgb(0, 55, 204)';
+
+            canvasCtx.beginPath();
+
+            var sliceWidth = WIDTH * 1.0 / bufferLength;
+            var x = 0;
+
+
+            for(var i = 0; i < bufferLength; i++) {
+
+                var v = dataArray[i] / 128.0;
+                var y = v * HEIGHT/2;
+
+                if(i === 0) {
+                    canvasCtx.moveTo(x, y);
+                } else {
+                    canvasCtx.lineTo(x, y);
+                }
+
+                x += sliceWidth;
+            }
+
+            canvasCtx.lineTo(canvas.width, canvas.height/2);
+            canvasCtx.stroke();
+
+        }
     }
 })(this);
