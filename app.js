@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 
 var BinaryServer = require('binaryjs').BinaryServer;
 var fs = require('fs');
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
 var wav = require('wav');
 var multipart = require("multipart");
 var sys = require("sys");
@@ -32,7 +34,7 @@ app.use(bodyParser.json());
 
 
 function getNewRecordName(){
-    while(fs.existsSync('public/'+recordName)){
+    while(fs.existsSync(appDir+'/public/'+recordName)){
         recordCount++;
         recordName = 'records/record'+recordCount+'.ogg';
     }
@@ -42,10 +44,10 @@ function getNewRecordName(){
 app.get('/records', function(req, res){
     console.log("records");
     res.writeHead(200);
-    var files = fs.readdirSync('public/records');
+    var files = fs.readdirSync(appDir+'/public/records');
     var records = [];
     files.forEach(function(file){
-        var stats = fs.statSync('public/records/' + file);
+        var stats = fs.statSync(appDir+'/public/records/' + file);
         records.push({file: 'records/' + file, size: stats["size"]});
     });
     recordCount = records.length;
@@ -79,7 +81,7 @@ app.get('/stopRecord', function(req, res){
 app.post('/upload', function(req, res){
     console.log("putted");
     res.writeHead(200);
-    var fileName = 'public/'+recordName;
+    var fileName = appDir+'/public/'+recordName;
     res.end(recordName);
 
     fs.appendFile(fileName, req.body.data, 'base64',  function(err) {
